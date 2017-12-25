@@ -1,11 +1,11 @@
 # Librería Arduino ColorConverter
-La librería ColorConverter contiene funciones sencillas para convertir colores entre diferentes sistenas (RGB, HSV, HSL, Temperature).
+La librería ColorConverter contiene funciones sencillas para convertir colores entre diferentes sistemas (RGB, HSV, HSL, Temperature).
 
 Más información https://www.luisllamas.es/libreria-arduino-colorconverter/
 
 ## Instrucciones de uso
 
-La librería ColorConverter contiene funciones estáticas de conversión entre colores. Por tanto, no es necesario instanciar un objeto, simplemente llamamos a las funciones necesarias.
+La librería ColorConverter está formada por funciones estáticas que permiten la conversión entre colores. Por tanto, no es necesario instanciar un objeto, simplemente llamamos a las funciones necesarias.
 
 ```c++
 static void RgbToHsv(uint8_t r, uint8_t g, uint8_t b, double &hue, double &saturation, double &value);
