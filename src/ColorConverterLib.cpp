@@ -7,46 +7,41 @@ Licensed under the Apache License, Version 2.0 (the "License"); you may not use 
 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License
  ****************************************************/
  
-#include "ColorConverterLib.h"
+#include "RGBConverterLib.h"
 
-void ColorConverter::RgbToHsv(byte red, byte green, byte blue, double& hue, double& saturation, double& value)
+void RGBConverter::RgbToHsv(uint8_t red, uint8_t green, uint8_t blue, double& hue, double& saturation, double& value)
 {
 	auto rd = static_cast<double>(red) / 255;
 	auto gd = static_cast<double>(green) / 255;
 	auto bd = static_cast<double>(blue) / 255;
 	auto max = threeway_max(rd, gd, bd), min = threeway_min(rd, gd, bd);
-	double h, s, v = max;
+	 
+	value = max;
 
 	auto d = max - min;
-	s = max == 0 ? 0 : d / max;
+	saturation = max == 0 ? 0 : d / max;
 
-	if (max == min)
-	{
-		h = 0;
-	}
-	else
+	hue = 0;
+	if (max != min)
 	{
 		if (max == rd)
 		{
-			h = (gd - bd) / d + (gd < bd ? 6 : 0);
+			hue = (gd - bd) / d + (gd < bd ? 6 : 0);
 		}
 		else if (max == gd)
 		{
-			h = (bd - rd) / d + 2;
+			hue = (bd - rd) / d + 2;
 		}
 		else if (max == bd)
 		{
-			h = (rd - gd) / d + 4;
+			hue = (rd - gd) / d + 4;
 		}
-		h /= 6;
+		hue /= 6;
 	}
-
-	hue = h;
-	saturation = s;
-	value = v;
 }
 
-void ColorConverter::RgbToHsl(byte red, byte green, byte blue, double& hue, double& saturation, double& lighting)
+
+void RGBConverter::RgbToHsl(uint8_t red, uint8_t green, uint8_t blue, double& hue, double& saturation, double& lighting)
 {
 	auto rd = static_cast<double>(red) / 255;
 	auto gd = static_cast<double>(green) / 255;
@@ -59,7 +54,7 @@ void ColorConverter::RgbToHsl(byte red, byte green, byte blue, double& hue, doub
 
 	if (max == min)
 	{
-		h = s = 0;
+		h = s = 0; // achromatic
 	}
 	else
 	{
@@ -85,7 +80,7 @@ void ColorConverter::RgbToHsl(byte red, byte green, byte blue, double& hue, doub
 	lighting = l;
 }
 
-void ColorConverter::HsvToRgb(double hue, double saturation, double value, uint8_t& red, uint8_t& green, uint8_t& blue)
+void RGBConverter::HsvToRgb(double hue, double saturation, double value, uint8_t& red, uint8_t& green, uint8_t& blue)
 {
 	double r, g, b;
 
@@ -111,18 +106,19 @@ void ColorConverter::HsvToRgb(double hue, double saturation, double value, uint8
 		break;
 	}
 
-	red = r * 255;
-	green = g * 255;
-	blue = b * 255;
+	red = static_cast<uint8_t>(r * 255);
+	green = static_cast<uint8_t>(g * 255);
+	blue = static_cast<uint8_t>(b * 255);
 }
 
-void ColorConverter::HslToRgb(double hue, double saturation, double lightness, byte& red, byte& green, byte& blue)
+
+void RGBConverter::HslToRgb(double hue, double saturation, double lightness, uint8_t& red, uint8_t& green, uint8_t& blue)
 {
 	double r, g, b;
 
 	if (saturation == 0)
 	{
-		r = g = b = lightness;
+		r = g = b = lightness; // achromatic
 	}
 	else
 	{
@@ -133,12 +129,12 @@ void ColorConverter::HslToRgb(double hue, double saturation, double lightness, b
 		b = hue2rgb(p, q, hue - 1 / 3.0);
 	}
 
-	red = r * 255;
-	green = g * 255;
-	blue = b * 255;
+	red = static_cast<uint8_t>(r * 255);
+	green = static_cast<uint8_t>(g * 255);
+	blue = static_cast<uint8_t>(b * 255);
 }
 
-void ColorConverter::TemperatureToRgb(int kelvin, uint8_t& red, uint8_t& green, uint8_t& blue)
+void RGBConverter::TemperatureToRgb(int kelvin, uint8_t& red, uint8_t& green, uint8_t& blue)
 {
 	auto temp = kelvin / 100;
 
@@ -164,18 +160,33 @@ void ColorConverter::TemperatureToRgb(int kelvin, uint8_t& red, uint8_t& green, 
 	}
 }
 
+void RGBConverter::HexToRgb(String hex, uint8_t& red, uint8_t& green, uint8_t& blue)
+{
+	long number = strtoll(&hex[0], NULL, 16);
+	red = number >> 16;
+	green = number >> 8 & 0xFF;
+	blue = number & 0xFF;
+}
 
-double inline ColorConverter::threeway_max(double a, double b, double c)
+void RGBConverter::RgbToHex(uint8_t red, uint8_t green, uint8_t blue, String &hex)
+{
+	char hexArray[6] = { 0 };
+	sprintf(hexArray, "%02X%02X%02X", red, green, blue);
+	hex = hexArray;
+}
+
+
+double inline RGBConverter::threeway_max(double a, double b, double c)
 {
 	return max(a, max(b, c));
 }
 
-double inline ColorConverter::threeway_min(double a, double b, double c)
+double inline RGBConverter::threeway_min(double a, double b, double c)
 {
 	return min(a, min(b, c));
 }
 
-double ColorConverter::hue2rgb(double p, double q, double t)
+double RGBConverter::hue2rgb(double p, double q, double t)
 {
 	if (t < 0) t += 1;
 	if (t > 1) t -= 1;
@@ -184,3 +195,4 @@ double ColorConverter::hue2rgb(double p, double q, double t)
 	if (t < 2 / 3.0) return p + (q - p) * (2 / 3.0 - t) * 6;
 	return p;
 }
+
