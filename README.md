@@ -13,6 +13,8 @@ static void RgbToHsl(uint8_t red, uint8_t green, uint8_t blue, double &hue, doub
 static void HsvToRgb(double hue, double saturation, double value, uint8_t & red, uint8_t & green, uint8_t & blue);
 static void HslToRgb(double hue, double saturation, double lightness, uint8_t &red, uint8_t &green, uint8_t &blue);
 static void TemperatureToRgb(int kelvin, uint8_t & red, uint8_t & green, uint8_t & blue);
+static void HexToRgb(String hex, uint8_t& r, uint8_t& g, uint8_t& b);
+static void RgbToHex(uint8_t r, uint8_t g, uint8_t b, String &hex);
 ```
 
 ## ToDo
@@ -23,7 +25,7 @@ La librería ColorConverter incluye los siguientes ejemplos para ilustrar su uso
 
 * ColorConverter: Ejemplo que muestra el uso de algunas de las funciones de conversión.
 ```c++
-#include "ColorConverterLib.h"
+#include "RGBConverterLib.h"
 
 void setup() 
 {
@@ -32,15 +34,20 @@ void setup()
 	uint8_t blue = 150;
 	double hue, saturation, lighting, value;
 	
-	ColorConverter::RgbToHsl(red, green, blue, hue, saturation, lighting);
-	ColorConverter::RgbToHsv(red, green, blue, hue, saturation, value);
-	ColorConverter::HslToRgb(hue, saturation, lighting, red, green, blue);
-	ColorConverter::HsvToRgb(hue, saturation, lighting, red, green, blue);
+	RGBConverter::RgbToHsl(red, green, blue, hue, saturation, lighting);
+	RGBConverter::RgbToHsv(red, green, blue, hue, saturation, value);
+	RGBConverter::HslToRgb(hue, saturation, lighting, red, green, blue);
+	RGBConverter::HsvToRgb(hue, saturation, lighting, red, green, blue);
 
-	ColorConverter::TemperatureToRgb(15000, red, green, blue);
+	RGBConverter::TemperatureToRgb(15000, red, green, blue);
+
+	String hex = "010509";
+	RGBConverter::HexToRgb(hex, red, green, blue);
+	RGBConverter::RgbToHex(red, green, blue, hex);
 }
 
 void loop() 
 {
+  
 }
 ```
