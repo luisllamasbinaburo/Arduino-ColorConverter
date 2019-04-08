@@ -7,9 +7,9 @@ Licensed under the Apache License, Version 2.0 (the "License"); you may not use 
 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License
  ****************************************************/
  
-#include "RGBConverterLib.h"
+#include "ColorConverter.h"
 
-void RGBConverter::RgbToHsv(uint8_t red, uint8_t green, uint8_t blue, double& hue, double& saturation, double& value)
+void ColorConverter::RgbToHsv(uint8_t red, uint8_t green, uint8_t blue, double& hue, double& saturation, double& value)
 {
 	auto rd = static_cast<double>(red) / 255;
 	auto gd = static_cast<double>(green) / 255;
@@ -41,7 +41,7 @@ void RGBConverter::RgbToHsv(uint8_t red, uint8_t green, uint8_t blue, double& hu
 }
 
 
-void RGBConverter::RgbToHsl(uint8_t red, uint8_t green, uint8_t blue, double& hue, double& saturation, double& lighting)
+void ColorConverter::RgbToHsl(uint8_t red, uint8_t green, uint8_t blue, double& hue, double& saturation, double& lighting)
 {
 	auto rd = static_cast<double>(red) / 255;
 	auto gd = static_cast<double>(green) / 255;
@@ -80,7 +80,7 @@ void RGBConverter::RgbToHsl(uint8_t red, uint8_t green, uint8_t blue, double& hu
 	lighting = l;
 }
 
-void RGBConverter::HsvToRgb(double hue, double saturation, double value, uint8_t& red, uint8_t& green, uint8_t& blue)
+void ColorConverter::HsvToRgb(double hue, double saturation, double value, uint8_t& red, uint8_t& green, uint8_t& blue)
 {
 	double r, g, b;
 
@@ -112,7 +112,7 @@ void RGBConverter::HsvToRgb(double hue, double saturation, double value, uint8_t
 }
 
 
-void RGBConverter::HslToRgb(double hue, double saturation, double lightness, uint8_t& red, uint8_t& green, uint8_t& blue)
+void ColorConverter::HslToRgb(double hue, double saturation, double lightness, uint8_t& red, uint8_t& green, uint8_t& blue)
 {
 	double r, g, b;
 
@@ -134,7 +134,7 @@ void RGBConverter::HslToRgb(double hue, double saturation, double lightness, uin
 	blue = static_cast<uint8_t>(b * 255);
 }
 
-void RGBConverter::TemperatureToRgb(int kelvin, uint8_t& red, uint8_t& green, uint8_t& blue)
+void ColorConverter::TemperatureToRgb(int kelvin, uint8_t& red, uint8_t& green, uint8_t& blue)
 {
 	auto temp = kelvin / 100;
 
@@ -160,7 +160,7 @@ void RGBConverter::TemperatureToRgb(int kelvin, uint8_t& red, uint8_t& green, ui
 	}
 }
 
-void RGBConverter::HexToRgb(String hex, uint8_t& red, uint8_t& green, uint8_t& blue)
+void ColorConverter::HexToRgb(String hex, uint8_t& red, uint8_t& green, uint8_t& blue)
 {
 	long number = strtoll(&hex[0], NULL, 16);
 	red = number >> 16;
@@ -168,7 +168,7 @@ void RGBConverter::HexToRgb(String hex, uint8_t& red, uint8_t& green, uint8_t& b
 	blue = number & 0xFF;
 }
 
-void RGBConverter::RgbToHex(uint8_t red, uint8_t green, uint8_t blue, String &hex)
+void ColorConverter::RgbToHex(uint8_t red, uint8_t green, uint8_t blue, String &hex)
 {
 	char hexArray[6] = { 0 };
 	sprintf(hexArray, "%02X%02X%02X", red, green, blue);
@@ -176,17 +176,17 @@ void RGBConverter::RgbToHex(uint8_t red, uint8_t green, uint8_t blue, String &he
 }
 
 
-double inline RGBConverter::threeway_max(double a, double b, double c)
+double inline ColorConverter::threeway_max(double a, double b, double c)
 {
 	return max(a, max(b, c));
 }
 
-double inline RGBConverter::threeway_min(double a, double b, double c)
+double inline ColorConverter::threeway_min(double a, double b, double c)
 {
 	return min(a, min(b, c));
 }
 
-double RGBConverter::hue2rgb(double p, double q, double t)
+double ColorConverter::hue2rgb(double p, double q, double t)
 {
 	if (t < 0) t += 1;
 	if (t > 1) t -= 1;

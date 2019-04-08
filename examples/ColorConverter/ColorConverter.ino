@@ -7,7 +7,7 @@ Licensed under the Apache License, Version 2.0 (the "License"); you may not use 
 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License
  ****************************************************/
  
-#include "RGBConverterLib.h"
+#include "ColorConverterLib.h"
 
 void setup() 
 {
@@ -16,16 +16,16 @@ void setup()
 	uint8_t blue = 150;
 	double hue, saturation, lighting, value;
 	
-	RGBConverter::RgbToHsl(red, green, blue, hue, saturation, lighting);
-	RGBConverter::RgbToHsv(red, green, blue, hue, saturation, value);
-	RGBConverter::HslToRgb(hue, saturation, lighting, red, green, blue);
-	RGBConverter::HsvToRgb(hue, saturation, lighting, red, green, blue);
+	ColorConverter::RgbToHsl(red, green, blue, hue, saturation, lighting);
+	ColorConverter::RgbToHsv(red, green, blue, hue, saturation, value);
+	ColorConverter::HslToRgb(hue, saturation, lighting, red, green, blue);
+	ColorConverter::HsvToRgb(hue, saturation, lighting, red, green, blue);
 
-	RGBConverter::TemperatureToRgb(15000, red, green, blue);
+	ColorConverter::TemperatureToRgb(15000, red, green, blue);
 
 	String hex = "010509";
-	RGBConverter::HexToRgb(hex, red, green, blue);
-	RGBConverter::RgbToHex(red, green, blue, hex);
+	ColorConverter::HexToRgb(hex, red, green, blue);
+	ColorConverter::RgbToHex(red, green, blue, hex);
 }
 
 void loop() 
