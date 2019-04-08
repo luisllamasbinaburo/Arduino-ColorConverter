@@ -42,8 +42,8 @@ void setup()
 	ColorConverter::TemperatureToRgb(15000, red, green, blue);
 
 	String hex = "010509";
-	RGBConverter::HexToRgb(hex, red, green, blue);
-	RGBConverter::RgbToHex(red, green, blue, hex);
+	ColorConverter::HexToRgb(hex, red, green, blue);
+	ColorConverter::RgbToHex(red, green, blue, hex);
 }
 
 void loop() 
