@@ -34,12 +34,12 @@ void setup()
 	uint8_t blue = 150;
 	double hue, saturation, lighting, value;
 	
-	RGBConverter::RgbToHsl(red, green, blue, hue, saturation, lighting);
-	RGBConverter::RgbToHsv(red, green, blue, hue, saturation, value);
-	RGBConverter::HslToRgb(hue, saturation, lighting, red, green, blue);
-	RGBConverter::HsvToRgb(hue, saturation, lighting, red, green, blue);
+	ColorConverter::RgbToHsl(red, green, blue, hue, saturation, lighting);
+	ColorConverter::RgbToHsv(red, green, blue, hue, saturation, value);
+	ColorConverter::HslToRgb(hue, saturation, lighting, red, green, blue);
+	ColorConverter::HsvToRgb(hue, saturation, lighting, red, green, blue);
 
-	RGBConverter::TemperatureToRgb(15000, red, green, blue);
+	ColorConverter::TemperatureToRgb(15000, red, green, blue);
 
 	String hex = "010509";
 	RGBConverter::HexToRgb(hex, red, green, blue);
