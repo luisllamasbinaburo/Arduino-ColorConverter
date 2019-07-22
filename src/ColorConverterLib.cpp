@@ -162,7 +162,9 @@ void ColorConverter::TemperatureToRgb(int kelvin, uint8_t& red, uint8_t& green, 
 
 void ColorConverter::HexToRgb(String hex, uint8_t& red, uint8_t& green, uint8_t& blue)
 {
-	long number = strtol(&hex[0], NULL, 16);
+	long number;
+	if(hex[0] == '#')  number = strtol(&hex[1], nullptr, 16);
+	else number = strtol(&hex[0], nullptr, 16);
 	red = number >> 16;
 	green = number >> 8 & 0xFF;
 	blue = number & 0xFF;
