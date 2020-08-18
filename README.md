@@ -25,7 +25,7 @@ La librería ColorConverter incluye los siguientes ejemplos para ilustrar su uso
 
 * ColorConverter: Ejemplo que muestra el uso de algunas de las funciones de conversión.
 ```c++
-#include "RGBConverterLib.h"
+#include "ColorConverter.h"
 
 void setup() 
 {
