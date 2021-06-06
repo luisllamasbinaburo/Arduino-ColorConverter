@@ -1,9 +1,16 @@
-# Librería Arduino ColorConverter
+# Deprecated
+This library is deprecated and it will be not longer maintained
+
+Replaced by https://github.com/luisllamasbinaburo/ESP-Color
+
+
+
+## Librería Arduino ColorConverter
 La librería ColorConverter contiene funciones sencillas para convertir colores entre diferentes sistemas (RGB, HSV, HSL, Temperature).
 
 Más información https://www.luisllamas.es/libreria-arduino-colorconverter/
 
-## Instrucciones de uso
+### Instrucciones de uso
 
 La librería ColorConverter está formada por funciones estáticas que permiten la conversión entre colores. Por tanto, no es necesario instanciar un objeto, simplemente llamamos a las funciones necesarias.
 
@@ -17,10 +24,10 @@ static void HexToRgb(String hex, uint8_t& r, uint8_t& g, uint8_t& b);
 static void RgbToHex(uint8_t r, uint8_t g, uint8_t b, String &hex);
 ```
 
-## ToDo
+### ToDo
 - [ ] Añadir funciones de byte a byte para evitar el uso de coma flotante
 
-## Ejemplos
+### Ejemplos
 La librería ColorConverter incluye los siguientes ejemplos para ilustrar su uso.
 
 * ColorConverter: Ejemplo que muestra el uso de algunas de las funciones de conversión.
